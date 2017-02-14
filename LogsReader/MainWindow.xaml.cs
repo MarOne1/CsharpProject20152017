@@ -43,23 +43,41 @@ namespace LogsReader
             boiteDialogue1.FilterIndex = 2;
             boiteDialogue1.RestoreDirectory = true;
 
+            if(boiteDialogue1.ShowDialog() == true ) { 
             try
             {
+                filename = boiteDialogue1.FileName;
+                    textbox1.Text = filename;
                 using(Stream stream1 = boiteDialogue1.OpenFile())
                 {
                     using (StreamReader reader = new StreamReader(stream1, Encoding.UTF8))
                     {
                         filecontent = reader.ReadToEnd();
-                    }
+                        MessageBox.Show("texte recuperer avec succees");
+
+                        }
 
                 }
+            }
+            catch
+            {
+               
+                MessageBox.Show("error !!");
+            }
             }
 
         }
 
         private void button2_Click(object sender, RoutedEventArgs e)
         {
-
+            try { 
+            System.IO.File.WriteAllText(@"C:\Users\HP\Desktop\exportResultLog.txt", filecontent);
+            MessageBox.Show("good");
+            }
+            catch
+            {
+                MessageBox.Show("Not good");
+            }
         }
     }
 }
